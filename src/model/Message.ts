@@ -5,6 +5,7 @@ export interface IMessage {
   roomId: Types.ObjectId; 
   userId: Types.ObjectId; 
   content: string; 
+  image:string;
   createdAt: Date; 
 }
 
@@ -24,7 +25,9 @@ const messageSchema: Schema = new Schema({
   },
   content: {
     type: String,
-    required: true,
+  },
+  image:{
+    type:String,
   },
   createdAt: {
     type: Date,

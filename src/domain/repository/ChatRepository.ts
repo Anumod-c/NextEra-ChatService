@@ -73,6 +73,33 @@ export class ChatRepository {
             return {success:false,message:"Error in saving chat to db"}
         }
     }
+    async saveImageMessage(message: ChatMessage) {
+        try {
+            console.log(message);
+            const newMessage = new Message({
+                roomId: message.courseId,  // Reference to Room's courseId
+                userId: message.userId,
+                image: message.image,
+            });
+            const savedMessage = await newMessage.save();
+            console.log('savedMessages',savedMessage._id)
+            // Update the Room with the last message reference (ObjectId) and timestamp
+
+            await Room.findOneAndUpdate(
+                { courseId: message.courseId },
+                {
+                    lastMessage: savedMessage._id, // Store ObjectId of the last message
+                    lastMessageTime: new Date()
+                },
+                { new: true }
+            );
+            console.log('Message saved to DB successfully:', savedMessage);
+            return {success:true, message:'Chat saved successfully'}
+        } catch (error) {
+            console.log("Error in saving  the message in  room db", error)
+            return {success:false,message:"Error in saving chat to db"}
+        }
+    }
     async loadPreviousMessages(courseId:string){
         try {
             // Fetch messages from DB where courseId matches

@@ -18,6 +18,9 @@ export default class MessageHandler{
         case 'save-message':
             response = await chatController.saveMessage(data);
             break;
+        case 'save-image-message':
+            response= await chatController.saveImageMessage(data);
+            break;
         case 'loadPreviousMessages':
             response = await chatController.loadPreviousMessages(data);
             break;

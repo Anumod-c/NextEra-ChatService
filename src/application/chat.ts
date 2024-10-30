@@ -27,6 +27,16 @@ export class ChatService {
             console.log("Error in saveMessage in  chat.ts",error)
         }
     }
+    async saveImageMessage(message:ChatMessage){
+        try{
+            const result = await this.chatRepo.saveImageMessage(message);
+            return result
+        }catch(error){
+            console.log("Error in saveMessage in  chat.ts",error)
+        }
+    }
+
+    
     async loadPreviousMessages(courseId:string){
         try {
             const result = await this.chatRepo.loadPreviousMessages(courseId);

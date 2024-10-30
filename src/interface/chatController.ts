@@ -1,7 +1,8 @@
 import { ChatService } from "../application/chat";
 export interface ChatMessage {
     userId: string;
-    text: string;
+    text?: string;
+    image:string;
     courseId?: string;  // If needed for tracking
   }
 class ChatController{
@@ -25,6 +26,15 @@ class ChatController{
         try {
             console.log('message in chat service',message)
             const result =await this.chatService.saveMessage(message);
+            return result;
+        } catch (error) {
+            console.log("Error in saving message in db",error)
+        }
+    }
+    async saveImageMessage(message:ChatMessage){
+        try {
+            console.log('message in chat service',message)
+            const result =await this.chatService.saveImageMessage(message);
             return result;
         } catch (error) {
             console.log("Error in saving message in db",error)
